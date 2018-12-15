@@ -35,26 +35,28 @@ template <class TKey, class TValue> class Map {
         }
 
         void add(TKey newKey, TValue newValue) {
-            TKey *tempKeys = new TKey[size + 1]();
-            TValue *tempValues = new TValue[size + 1]();
+            if (!find(newKey)) {
+                TKey *tempKeys = new TKey[size + 1]();
+                TValue *tempValues = new TValue[size + 1]();
 
-            for (unsigned int i = 0; i < size; i++) {
-                tempKeys[i] = keys[i];
-                tempValues[i] = values[i];
+                for (unsigned int i = 0; i < size; i++) {
+                    tempKeys[i] = keys[i];
+                    tempValues[i] = values[i];
+                }
+                
+                tempKeys[size] = newKey;
+                tempValues[size] = newValue;
+
+                delete[] keys;
+                delete[] values;
+                keys = tempKeys;
+                values = tempValues;
+                size++;
             }
-            
-            tempKeys[size] = newKey;
-            tempValues[size] = newValue;
-
-            delete[] keys;
-            delete[] values;
-            keys = tempKeys;
-            values = tempValues;
-            size++;
         }
 
         Map& operator=(const Map& map) {
-            if (this == map) {
+            if (this == &map) {
                 return *this;
             }
             
@@ -63,13 +65,24 @@ template <class TKey, class TValue> class Map {
                 delete[] values;
             }
 
-            Map tempMap(map);
+            Map<TKey, TValue> tempMap(map);
             
-            map.keys = tempMap.keys;
-            map.values = tempMap.values;
-            map.size = tempMap.size;
+            this->keys = tempMap.keys;
+            this->values = tempMap.values;
+            this->size = tempMap.size;
+
+            tempMap.keys = nullptr;                         // this->keys won't be deleted after exiting the function
+            tempMap.values = nullptr;                       // this->values won't be deleted after exiting the function
 
             return *this;
+        }
+
+        TValue* find(TKey key) {
+            for (unsigned int i = 0; i < size; i++) {
+                if (keys[i] == key)
+                    return &values[i];
+            }
+            return nullptr;
         }
 
         friend ostream & operator<<(ostream& out, const Map& map) {

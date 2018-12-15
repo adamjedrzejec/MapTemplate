@@ -23,7 +23,4 @@ class Employee {
             out << "Name: " << emp.name << "\tPosition: " << emp.position << "\tAge: " << emp.age;
             return out;
         }
-        // string getName() { return name; }
-        // string getPosition() { return position; }
-        // unsigned int getAge() { return age; }
 };

@@ -15,13 +15,13 @@ int main() {
 
 	Map<ID, Employee> newDatabase = database;							// Make a copy of database (copy constructor called)
 	
-	// Employee* pE;
-	// pE = newDatabase.find(510212881);									// Find employee using its ID
-	// pE->position = "salesman";											// Modify the position of employee
-	// pE = newDatabase.find(761028073);									// Find employee using its ID
-	// pE->age = 29;														// Modify the age of employee
+	Employee* pE;
+	pE = newDatabase.find(510212881);									// Find employee using its ID
+	pE->position = "salesman";											// Modify the position of employee
+	pE = newDatabase.find(761028073);									// Find employee using its ID
+	pE->age = 29;														// Modify the age of employee
 
-	// database = newDatabase;												// Update original database (assignment operator called)
+	database = newDatabase;												// Update original database (assignment operator called)
 	
-	// cout << database << endl;											// Print original database
+	cout << database << endl;											// Print original database
 }
