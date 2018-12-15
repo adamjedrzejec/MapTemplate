@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
-using namespace std;    // for std::string
+using namespace std;
 
 class Employee {
     public:
@@ -18,6 +19,10 @@ class Employee {
             age = inputAge;
         }
 
+        friend ostream & operator<<(ostream& out, const Employee& emp) {
+            out << "Name: " << emp.name << "\tPosition: " << emp.position << "\tAge: " << emp.age;
+            return out;
+        }
         // string getName() { return name; }
         // string getPosition() { return position; }
         // unsigned int getAge() { return age; }

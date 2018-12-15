@@ -11,9 +11,9 @@ int main() {
 	database.add(510212881, Employee("Adam Nowak", "storekeeper", 54));	// Add second employee: name: Adam Nowak, position: storekeeper, age: 54
 	database.add(730505129, Employee("Anna Zaradna", "secretary", 32));	// Add third employee: name: Anna Zaradna, position: secretary, age: 32
 
-	// cout << database << endl;											// Print database
+	cout << database << endl;											// Print database
 
-	// Map<ID, Employee> newDatabase = database;							// Make a copy of database (copy constructor called)
+	Map<ID, Employee> newDatabase = database;							// Make a copy of database (copy constructor called)
 	
 	// Employee* pE;
 	// pE = newDatabase.find(510212881);									// Find employee using its ID

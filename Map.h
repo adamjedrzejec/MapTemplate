@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 using namespace std;
 
@@ -15,8 +16,8 @@ template <class TKey, class TValue> class Map {
         }
 
         Map(const Map &m) {
-            TKey tempKeys = new TKey[m.size]();
-            TValue tempValues = new TValue[m.size]();
+            TKey *tempKeys = new TKey[m.size];
+            TValue *tempValues = new TValue[m.size];
             
             for(unsigned int i = 0; i < m.size; i++){
                 tempKeys[i] = m.keys[i];
@@ -52,4 +53,29 @@ template <class TKey, class TValue> class Map {
             size++;
         }
 
+        Map& operator=(const Map& map) {
+            if (this == map) {
+                return *this;
+            }
+            
+            if (this->size) {
+                delete[] keys;
+                delete[] values;
+            }
+
+            Map tempMap(map);
+            
+            map.keys = tempMap.keys;
+            map.values = tempMap.values;
+            map.size = tempMap.size;
+
+            return *this;
+        }
+
+        friend ostream & operator<<(ostream& out, const Map& map) {
+            for (unsigned int i = 0; i < map.size; i++) {
+                cout << map.keys[i] << "\t" << map.values[i] << endl;
+            }
+            return out;
+        }
 };
