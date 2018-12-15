@@ -1,5 +1,7 @@
 #include "Map.h"														// Defines template Map<Key, Value>
 #include "Employee.h"													// Defines class Employee
+#include "BookInformation.h"
+
 #include <iostream>
 
 using namespace std;
@@ -24,4 +26,28 @@ int main() {
 	database = newDatabase;												// Update original database (assignment operator called)
 	
 	cout << database << endl;											// Print original database
+
+
+
+
+	typedef string BookTitle;
+	Map<BookTitle, BookInformation> library;
+	library.add("Introduction to Algorithms", BookInformation("Thomas H. Cormen", "education", 1312, true));
+	library.add("Harry Potter and the Deathly Hallows", BookInformation("J. K. Rowling", "fantasy", 607, false));
+	library.add("Little Red Riding Hood", BookInformation("Charles Perrault, Jack Zipes", "fairy tale", 11, true));
+
+	cout << library << endl;
+
+	BookInformation* bI;
+	if ( (bI = library.find("Harry Potter and the Deathly Hallows") ) ) {
+		bI->howManyPages = 759;
+		bI->lendBook();
+		bI->returnBook();
+	}
+
+	if ( (bI = library.find("Little Red Riding Hood") ) ) {
+		bI->lendBook();
+	}
+
+	cout << library << endl;
 }
