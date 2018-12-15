@@ -11,7 +11,7 @@ template <class TKey, class TValue> class Map {
         Map() {
             keys = nullptr;
             values = nullptr;
-            this->size = size;
+            this->size = 0;
         }
 
         Map(const Map &m) {
@@ -37,20 +37,19 @@ template <class TKey, class TValue> class Map {
             TKey *tempKeys = new TKey[size + 1]();
             TValue *tempValues = new TValue[size + 1]();
 
-            for (unsigned int i; i < size; i++) {
+            for (unsigned int i = 0; i < size; i++) {
                 tempKeys[i] = keys[i];
                 tempValues[i] = values[i];
             }
+            
             tempKeys[size] = newKey;
             tempValues[size] = newValue;
 
-            if (size) {
-                delete[] keys;
-                delete[] values;
-            }
-
+            delete[] keys;
+            delete[] values;
             keys = tempKeys;
             values = tempValues;
+            size++;
         }
 
 };
